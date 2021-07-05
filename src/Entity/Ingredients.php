@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\IngredientsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=IngredientsRepository::class)
+ * @ApiResource()
  */
 class Ingredients
 {
@@ -29,11 +31,16 @@ class Ingredients
      */
     private $id_category;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Meals::class, mappedBy="ingredients")
+     */
+    private $meal;
+
 
 
     public function __construct()
     {
-        
+        $this->meal = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,6 +68,36 @@ class Ingredients
     public function setIdCategory(?category $id_category): self
     {
         $this->id_category = $id_category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Meals[]
+     */
+    public function getMeal(): Collection
+    {
+        return $this->meal;
+    }
+
+    public function addMeal(Meals $meal): self
+    {
+        if (!$this->meal->contains($meal)) {
+            $this->meal[] = $meal;
+            $meal->setIngredients($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeal(Meals $meal): self
+    {
+        if ($this->meal->removeElement($meal)) {
+            // set the owning side to null (unless already changed)
+            if ($meal->getIngredients() === $this) {
+                $meal->setIngredients(null);
+            }
+        }
 
         return $this;
     }

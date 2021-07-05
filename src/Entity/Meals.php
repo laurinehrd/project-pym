@@ -24,6 +24,12 @@ class Meals
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Ingredients::class, inversedBy="meal")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ingredients;
+
 
 
     public function __construct()
@@ -44,6 +50,18 @@ class Meals
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getIngredients(): ?Ingredients
+    {
+        return $this->ingredients;
+    }
+
+    public function setIngredients(?Ingredients $ingredients): self
+    {
+        $this->ingredients = $ingredients;
 
         return $this;
     }
