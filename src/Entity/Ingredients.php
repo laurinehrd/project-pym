@@ -12,7 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=IngredientsRepository::class)
  * @ApiResource(
- *      normalizationContext= {"groups" = {"read:ingredients"}}
+ *      normalizationContext={"groups"={"ingredients:read"}},
+ *      denormalizationContext={"groups"={"ingredients:write"}}
  * )
  */
 class Ingredients
@@ -21,25 +22,29 @@ class Ingredients
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:ingredients"})
+     * 
+     * @Groups("ingredients:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read:ingredients"})
+     * 
+     * @Groups("ingredients:read", "ingredients:write")
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=category::class)
-     * @Groups({"read:ingredients"})
+     * 
+     * @Groups("ingredients:read")
      */
     private $id_category;
 
     /**
      * @ORM\OneToMany(targetEntity=Meals::class, mappedBy="ingredients")
-     * @Groups({"read:ingredients"})
+     * 
+     * @Groups("ingredients:read", "ingredients:write")
      */
     private $meal;
 
