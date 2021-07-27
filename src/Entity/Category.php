@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  * @ApiResource(
- *      normalizationContext={"groups"={"category:red"}},
+ *      normalizationContext={"groups"={"category:read"}},
  *      denormalizationContext={"groups"={"category:write"}}
  * )
  */
@@ -21,7 +21,7 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"category:write"})
+     * @Groups("category:read")
      */
     private $id;
 

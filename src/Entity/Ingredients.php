@@ -30,7 +30,7 @@ class Ingredients
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups("ingredients:read", "ingredients:write")
+     * @Groups({"ingredients:read", "ingredients:write"})
      */
     private $name;
 
@@ -44,7 +44,7 @@ class Ingredients
     /**
      * @ORM\OneToMany(targetEntity=Meals::class, mappedBy="ingredients")
      * 
-     * @Groups("ingredients:read", "ingredients:write")
+     * @Groups("ingredients:read")
      */
     private $meal;
 
