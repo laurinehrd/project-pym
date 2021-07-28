@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\IntermediaireRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +26,8 @@ class Intermediaire
     private $meal;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Ingredients::class, inversedBy="intermediaires")
+     * @ORM\ManyToOne(targetEntity=Ingredients::class, inversedBy="intermediaires")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $ingredients;
 
@@ -43,48 +42,31 @@ class Intermediaire
      */
     private $unity;
 
-    public function __construct()
-    {
-        $this->ingredients = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getMeal(): ?meals
+    public function getMeal(): ?Meals
     {
         return $this->meal;
     }
 
-    public function setMeal(?meals $meal): self
+    public function setMeal(?Meals $meal): self
     {
         $this->meal = $meal;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Ingredients[]
-     */
-    public function getIngredients(): Collection
+    public function getIngredients(): ?Ingredients
     {
         return $this->ingredients;
     }
 
-    public function addIngredient(Ingredients $ingredient): self
+    public function setIngredients(?Ingredients $ingredients): self
     {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients[] = $ingredient;
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(Ingredients $ingredient): self
-    {
-        $this->ingredients->removeElement($ingredient);
+        $this->ingredients = $ingredients;
 
         return $this;
     }

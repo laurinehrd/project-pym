@@ -43,9 +43,15 @@ class Meals
      */
     private $ingredients;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Intermediaire::class, mappedBy="meal", orphanRemoval=true)
+     */
+    private $intermediaires;
+
 
     public function __construct()
     {
+        $this->intermediaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +79,36 @@ class Meals
     public function setIngredients(?Ingredients $ingredients): self
     {
         $this->ingredients = $ingredients;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Intermediaire[]
+     */
+    public function getIntermediaires(): Collection
+    {
+        return $this->intermediaires;
+    }
+
+    public function addIntermediaire(Intermediaire $intermediaire): self
+    {
+        if (!$this->intermediaires->contains($intermediaire)) {
+            $this->intermediaires[] = $intermediaire;
+            $intermediaire->setMeal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntermediaire(Intermediaire $intermediaire): self
+    {
+        if ($this->intermediaires->removeElement($intermediaire)) {
+            // set the owning side to null (unless already changed)
+            if ($intermediaire->getMeal() === $this) {
+                $intermediaire->setMeal(null);
+            }
+        }
 
         return $this;
     }
