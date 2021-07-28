@@ -22,7 +22,7 @@ class Intermediaire
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=meals::class, inversedBy="intermediaires")
+     * @ORM\ManyToOne(targetEntity=Meals::class, inversedBy="intermediaires")
      * @ORM\JoinColumn(nullable=false)
      */
     private $meal;
