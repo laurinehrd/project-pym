@@ -35,13 +35,6 @@ class Meals
      */
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Ingredients::class, inversedBy="meal")
-     * @ORM\JoinColumn(nullable=false)
-     * 
-     * @Groups("meals:read")
-     */
-    private $ingredients;
 
     /**
      * @ORM\OneToMany(targetEntity=Intermediaire::class, mappedBy="meal", orphanRemoval=true)
@@ -71,17 +64,6 @@ class Meals
         return $this;
     }
 
-    public function getIngredients(): ?Ingredients
-    {
-        return $this->ingredients;
-    }
-
-    public function setIngredients(?Ingredients $ingredients): self
-    {
-        $this->ingredients = $ingredients;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Intermediaire[]

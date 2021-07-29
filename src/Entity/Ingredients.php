@@ -41,11 +41,6 @@ class Ingredients
      */
     private $category;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Meals::class, mappedBy="ingredients")
-     * 
-     */
-    private $meal;
 
     /**
      * @ORM\OneToMany(targetEntity=Intermediaire::class, mappedBy="ingredients", orphanRemoval=true)
@@ -89,35 +84,6 @@ class Ingredients
         return $this;
     }
 
-    /**
-     * @return Collection|Meals[]
-     */
-    public function getMeal(): Collection
-    {
-        return $this->meal;
-    }
-
-    public function addMeal(Meals $meal): self
-    {
-        if (!$this->meal->contains($meal)) {
-            $this->meal[] = $meal;
-            $meal->setIngredients($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMeal(Meals $meal): self
-    {
-        if ($this->meal->removeElement($meal)) {
-            // set the owning side to null (unless already changed)
-            if ($meal->getIngredients() === $this) {
-                $meal->setIngredients(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Intermediaire[]
