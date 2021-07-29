@@ -5,7 +5,9 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -15,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      denormalizationContext={"groups"={"user:write"}}
  * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -41,11 +43,17 @@ class User
     private $email;
 
     /**
+     * @var string The hashed password
      * @ORM\Column(type="string", length=255)
-     * 
-     * @Groups({"user:read", "user:write"})
      */
     private $password;
+
+     /**
+     * @Groups("user:write")
+     * @SerializedName("password")
+     */
+    private $plainPassword;
+
 
     public function getId(): ?int
     {
@@ -86,5 +94,47 @@ class User
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+
+    public function getUserIdentifier()
+    {
+        
+    }
+
+    public function getRoles()
+    {
+        
+    }
+
+    public function getSalt()
+    {
+        
+    }
+
+    public function getUsername()
+    {
+        
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        $this->plainPassword = null;
     }
 }
