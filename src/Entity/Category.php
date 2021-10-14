@@ -33,7 +33,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Ingredients::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Ingredients::class, mappedBy="category", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      * 
      */

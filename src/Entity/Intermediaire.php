@@ -26,7 +26,7 @@ class Intermediaire
     private $meal;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ingredients::class, inversedBy="intermediaires")
+     * @ORM\ManyToOne(targetEntity=Ingredients::class, inversedBy="intermediaires", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $ingredients;
