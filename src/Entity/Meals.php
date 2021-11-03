@@ -38,6 +38,8 @@ class Meals
 
     /**
      * @ORM\OneToMany(targetEntity=Intermediaire::class, mappedBy="meal", orphanRemoval=true)
+     * 
+     * @Groups({"meals:read", "meals:write"})
      */
     private $intermediaires;
 
