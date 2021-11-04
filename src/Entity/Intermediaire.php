@@ -5,10 +5,19 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\IntermediaireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *      normalizationContext={"groups"={"intermediaires:read"}},
+ *      denormalizationContext={"groups"={"intermediaires:write"}}
+ * )
  * @ORM\Entity(repositoryClass=IntermediaireRepository::class)
+ * 
+ * @ApiFilter(SearchFilter::class, properties={"meal.id": "exact"})
+
  */
 class Intermediaire
 {
@@ -16,29 +25,39 @@ class Intermediaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"intermediaires:read", "intermediaires:write"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Meals::class, inversedBy="intermediaires")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups({"intermediaires:read", "intermediaires:write"})
      */
     private $meal;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ingredients::class, inversedBy="intermediaires", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups({"intermediaires:read", "intermediaires:write"})
      */
     private $ingredients;
 
     /**
      * @ORM\Column(type="float")
+     * 
+     * @Groups({"intermediaires:read", "intermediaires:write"})
      */
     private $quantity;
 
     /**
      * @ORM\ManyToOne(targetEntity=Unity::class, inversedBy="intermediaires")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * @Groups({"intermediaires:read", "intermediaires:write"})
      */
     private $unity;
 
