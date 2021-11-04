@@ -30,7 +30,7 @@ class Ingredients
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"ingredients:read", "ingredients:write"})
+     * @Groups({"ingredients:read", "ingredients:write", "intermediaires:read"})
      */
     private $name;
 

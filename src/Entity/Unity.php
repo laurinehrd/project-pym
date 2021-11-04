@@ -32,7 +32,7 @@ class Unity
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"unity:read", "unity:write"})
+     * @Groups({"unity:read", "unity:write", "intermediaires:read"})
      */
     private $name;
 
