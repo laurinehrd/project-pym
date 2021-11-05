@@ -37,7 +37,7 @@ class Meals
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Intermediaire::class, mappedBy="meal", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Intermediaire::class, mappedBy="meal", orphanRemoval=true, cascade={"persist"})
      * 
      * @Groups({"meals:read", "meals:write"})
      */
