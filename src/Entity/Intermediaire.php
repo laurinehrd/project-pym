@@ -39,17 +39,17 @@ class Intermediaire
     private $meal;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ingredients::class, inversedBy="intermediaires", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity=Ingredients::class, inversedBy="intermediaires")
      * @ORM\JoinColumn(nullable=false)
      * 
-     * @Groups({"intermediaires:read", "intermediaires:write", "meals:write"})
+     * @Groups({"intermediaires:read", "intermediaires:write", "meals:write", "meals:readfull"})
      */
     private $ingredients;
 
     /**
      * @ORM\Column(type="float")
      * 
-     * @Groups({"intermediaires:read", "intermediaires:write", "meals:write"})
+     * @Groups({"intermediaires:read", "intermediaires:write", "meals:write", "meals:readfull"})
      */
     private $quantity;
 
@@ -57,7 +57,7 @@ class Intermediaire
      * @ORM\ManyToOne(targetEntity=Unity::class, inversedBy="intermediaires")
      * @ORM\JoinColumn(nullable=false)
      * 
-     * @Groups({"intermediaires:read", "intermediaires:write", "meals:write"})
+     * @Groups({"intermediaires:read", "intermediaires:write", "meals:write", "meals:readfull"})
      */
     private $unity;
 
