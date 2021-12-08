@@ -14,7 +14,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * 
  * @ApiResource(
  *      normalizationContext={"groups"={"meals:read"}},
- *      denormalizationContext={"groups"={"meals:write"}}
+ *      denormalizationContext={"groups"={"meals:write"}},
+ *      itemOperations={
+ *         "get"={
+ *             "normalization_context"={"groups"={"meals:readfull"}}
+ *         },
+ *         "put",
+ *         "delete"
+ *     }
  * )
  */
 class Meals
@@ -24,14 +31,14 @@ class Meals
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups("meals:read")
+     * @Groups({"meals:read", "meals:readfull"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"meals:read", "meals:write"})
+     * @Groups({"meals:read", "meals:write", "meals:readfull"})
      */
     private $name;
 
@@ -39,7 +46,7 @@ class Meals
     /**
      * @ORM\OneToMany(targetEntity=Intermediaire::class, mappedBy="meal", orphanRemoval=true, cascade={"persist"})
      * 
-     * @Groups({"meals:read", "meals:write"})
+     * @Groups({"meals:read", "meals:write", "meals:readfull"})
      */
     private $intermediaires;
 
