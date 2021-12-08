@@ -25,14 +25,14 @@ class Unity
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups("unity:read")
+     * @Groups({"unity:read", "meals:readfull"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"unity:read", "unity:write", "intermediaires:read"})
+     * @Groups({"unity:read", "unity:write", "intermediaires:read", "meals:readfull"})
      */
     private $name;
 

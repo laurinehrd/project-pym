@@ -23,21 +23,21 @@ class Ingredients
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups("ingredients:read")
+     * @Groups({"ingredients:read", "meals:readfull"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"ingredients:read", "ingredients:write", "intermediaires:read"})
+     * @Groups({"ingredients:read", "ingredients:write", "intermediaires:read", "meals:readfull"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class)
      * 
-     * @Groups({"ingredients:read", "ingredients:write"})
+     * @Groups({"ingredients:read", "ingredients:write", "meals:readfull"})
      */
     private $category;
 
