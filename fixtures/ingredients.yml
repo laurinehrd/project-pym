@@ -1,0 +1,4 @@
+App\Entity\Ingredients:
+    ingredients_{1..10}:
+        name: <name()>
+        category: '@category_*'
