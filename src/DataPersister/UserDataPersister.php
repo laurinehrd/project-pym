@@ -26,6 +26,7 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
 
     /**
      * {@inheritdoc}
+     * défini si ce persister supporte l'entité
      */
     public function supports($data, array $context = []): bool
     {
@@ -34,6 +35,7 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
 
     /**
      * @param User $data
+     * methode pour créer ou modifier les données
      */
     public function persist($data, array $context = [])
     {
@@ -45,7 +47,7 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
                 )
             );
 
-            $data->eraseCredentials();
+            $data->eraseCredentials(); // efface toutes traces du mdp (dans user.php)
         }
 
         $this->_entityManager->persist($data);
@@ -54,6 +56,7 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
 
     /**
      * {@inheritdoc}
+     * methode appelé pour l'opération DELETE
      */
     public function remove($data, array $context = [])
     {
